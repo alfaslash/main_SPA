@@ -1,0 +1,15 @@
+/* src/styles/index.css */
+.header {
+  width: 100%;
+  background-color: aliceblue;
+  padding: 1vh;
+  box-sizing: border-box;
+}
+.navigation ul {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+}
+.navigation ul li a {
+  color: blue;
+}

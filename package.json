@@ -1,0 +1,35 @@
+{
+  "name": "main_spa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.tsx",
+  "config": {
+    "esbuild": "./node_modules/.bin/esbuild"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alfaslash/main_SPA.git"
+  },
+  "author": "alfaslash",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alfaslash/main_SPA/issues"
+  },
+  "homepage": "https://github.com/alfaslash/main_SPA#readme",
+  "dependencies": {
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "react-router-dom": "6.3.0",
+    "typescript": "4.6.3"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.8",
+    "@types/react-dom": "18.0.0",
+    "@types/react-router-dom": "5.3.3",
+    "esbuild": "0.14.38"
+  }
+}
