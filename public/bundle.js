@@ -994,7 +994,7 @@
             }
             return dispatcher.useContext(Context);
           }
-          function useState3(initialState) {
+          function useState4(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1794,7 +1794,7 @@
           exports.useMemo = useMemo3;
           exports.useReducer = useReducer;
           exports.useRef = useRef3;
-          exports.useState = useState3;
+          exports.useState = useState4;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -23555,15 +23555,28 @@
   var import_react5 = __toESM(require_react());
   var Page1 = () => {
     const webComponents = (0, import_react5.createRef)();
+    const [loaded, setLoaded] = (0, import_react5.useState)(false);
     (0, import_react5.useEffect)(() => {
-      if (!!webComponents) {
+      const scriptTag = document.createElement("script");
+      scriptTag.src = "../../remote_WC_1/public/bundle.js";
+      scriptTag.addEventListener("load", () => setLoaded(true));
+      document.head.appendChild(scriptTag);
+      return () => {
+        document.head.removeChild(scriptTag);
+      };
+    }, []);
+    (0, import_react5.useEffect)(() => {
+      if (!!webComponents && !!loaded) {
         webComponents.current.props = {
           title: "Remote application",
           data: [5, 4, 3, 2, 1],
           callback: () => console.log("Callback from the main application")
         };
       }
-    }, [webComponents]);
+    }, [webComponents, loaded]);
+    if (!loaded) {
+      return null;
+    }
     return /* @__PURE__ */ import_react5.default.createElement("div", null, /* @__PURE__ */ import_react5.default.createElement("h3", null, "Page 1"), /* @__PURE__ */ import_react5.default.createElement("main-web-components", {
       ref: webComponents
     }));

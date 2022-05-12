@@ -1,4 +1,4 @@
-import React, { FC, createRef, useEffect, RefAttributes } from 'react';
+import React, { FC, createRef, useEffect, RefAttributes, useState } from 'react';
 
 declare global {
 	namespace JSX {
@@ -8,7 +8,6 @@ declare global {
 	}
 }
 
-
 export interface AppProps {
 	data: Array<number>;
 	title: string;
@@ -17,16 +16,32 @@ export interface AppProps {
 
 export const Page1: FC = () => {
 	const webComponents = createRef<{ props: AppProps; }>();
+	const [loaded, setLoaded] = useState(false);
 
 	useEffect(() => {
-		if (!!webComponents) {
+		const scriptTag = document.createElement('script');
+		scriptTag.src = '../../remote_WC_1/public/bundle.js';
+		scriptTag.addEventListener('load', () => setLoaded(true))
+		document.head.appendChild(scriptTag);
+
+		return () => {
+			document.head.removeChild(scriptTag);
+		}
+	}, []);
+
+	useEffect(() => {
+		if (!!webComponents && !!loaded) {
 			webComponents.current.props = {
 				title: "Remote application",
 				data: [5, 4, 3, 2, 1],
 				callback: () => console.log('Callback from the main application')
 			};
 		}
-	}, [webComponents]);
+	}, [webComponents, loaded]);
+
+	if (!loaded) {
+		return null;
+	}
 
 	return (
 		<div>
